@@ -1,0 +1,85 @@
+#include <stdio.h>
+#define len 100
+
+typedef struct {
+	int data[len];
+	int length;
+} list;
+list l;
+
+void insertElem(list *l, int n, int b) {
+	int x = 1, i;
+	while (x) {
+
+		if (n < 1 || n > l->length + 1) {
+			printf("位置错误，请重新输入\n");
+			scanf("%d %d", &n, &b);
+		} else if (n == l->length + 1) {
+			l->data[n - 1] = b;
+			l->length++;
+			x = 0;
+		} else {
+			int j = l->length ;
+			for (j; j >= n ; j--)
+				l->data[j ] = l->data[j - 1];
+			l->data[n - 1] = b;
+			l->length++;
+			x = 0;
+		}
+
+
+	}
+	printf("插入后的表：\n");
+	for (i = 0; i < l->length; i++)
+		printf("%d   ", l->data[i]);
+	printf("\n");
+
+}
+
+
+void lnitlist(list *l) {
+	l->length = 0;
+}
+
+void creat(list *l, int n) {
+
+	int i;
+	for (i = 0; i < n; i++)
+		scanf("%d", &l->data[i]);
+	l->length = i;
+	printf("链表数据：\n");
+	for (i = 0; i < n; i++)
+		printf("%d   ", l->data[i]);
+	printf("\n");
+}
+
+
+int main() {
+	char m;
+	int n, a, b, x = 1;
+	printf("输入线性表数量：\n");
+	scanf("%d", &n);
+	lnitlist(&l);
+	creat(&l, n);
+
+	printf("插入位置和插入数字：\n");
+	getchar();
+	scanf("%d %d", &a, &b);
+
+	insertElem(&l, a, b);
+
+	while (x) {
+		printf("是否继续Y or  N\n");
+		getchar();
+		scanf("%c", &m);
+		if (m != 'y' && m != 'Y')
+			x = 0;
+		else {
+			printf("插入位置和插入数字：\n");
+			getchar();
+			scanf("%d %d", &a, &b);
+
+			insertElem(&l, a, b);
+		}
+	}
+}
